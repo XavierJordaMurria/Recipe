@@ -4,10 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
 
 public class MainActivity extends AppCompatActivity
@@ -30,6 +34,32 @@ public class MainActivity extends AppCompatActivity
 
         RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(MainActivity.this, rowListItem);
         rView.setAdapter(rcAdapter);
+
+
+
+        RetrofirecipiAPIInterface apiService =
+                RetrofitRecipe.getClient().create(RetrofirecipiAPIInterface.class);
+
+        Call<RecipeModel> call = apiService.getAnswers();
+        call.enqueue(new Callback<RecipeModel>()
+        {
+            @Override
+            public void onResponse(Call<RecipeModel>call, Response<RecipeModel> response)
+            {
+                List<RecipeModel> recepies = (List<RecipeModel>) response.body();
+
+                List<StepsComponents> steps = response.body().getSteps_();
+
+                Log.d(TAG, "Number of steps received: " + steps.size());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeModel>call, Throwable t)
+            {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
     }
 
     private List<ItemObject> getAllItemList(){
