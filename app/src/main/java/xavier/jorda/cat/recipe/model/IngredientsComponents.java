@@ -1,4 +1,4 @@
-package xavier.jorda.cat.recipe;
+package xavier.jorda.cat.recipe.model;
 
 /**
  * Created by xj1 on 31/05/2017.
@@ -8,20 +8,20 @@ import com.google.gson.annotations.SerializedName;
 public class IngredientsComponents
 {
     @SerializedName("quantity")
-    private int quantity_;
+    private float quantity_;
     @SerializedName("measure")
     private String measure_;
     @SerializedName("ingredient")
     private String ingredientName_;
 
-    public IngredientsComponents(int quantity, String mesure, String name)
+    public IngredientsComponents(float quantity, String mesure, String name)
     {
         quantity_   = quantity;
         measure_     = mesure;
         ingredientName_ = name;
     }
 
-    public int getQuantity_()
+    public float getQuantity_()
     {
         return quantity_;
     }

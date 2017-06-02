@@ -1,4 +1,4 @@
-package xavier.jorda.cat.recipe;
+package xavier.jorda.cat.recipe.model;
 
 /**
  * Created by xj1 on 31/05/2017.
