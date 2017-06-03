@@ -12,13 +12,13 @@ import android.widget.Toast;
 
 import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
 
-public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener
+public class MainActivityViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener
 {
     private final static String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
     public TextView mRecipeName;
     public ImageView mRecipePhoto;
 
-    public RecyclerViewHolders(View itemView)
+    public MainActivityViewHolders(View itemView)
     {
         super(itemView);
         itemView.setOnClickListener(this);

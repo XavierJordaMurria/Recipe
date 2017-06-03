@@ -26,4 +26,15 @@ public class RetrofitRecipe
         }
         return retrofit;
     }
+
+    public static <T> T createServiceFrom(final Class<T> serviceClass)
+    {
+        Retrofit adapter = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .build();
+
+        T service = adapter.create(serviceClass);
+
+        return service;
+    }
 }
