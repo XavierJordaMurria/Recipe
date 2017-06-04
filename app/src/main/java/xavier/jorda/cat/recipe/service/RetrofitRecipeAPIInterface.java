@@ -1,4 +1,4 @@
-package xavier.jorda.cat.recipe;
+package xavier.jorda.cat.recipe.service;
 
 /**
  * Created by xj1 on 31/05/2017.
@@ -12,11 +12,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import xavier.jorda.cat.recipe.model.RecipeModel;
 
-interface RetrofitRecipeAPIInterface
+public interface RetrofitRecipeAPIInterface
 {
     @GET("2017/May/59121517_baking/baking.json")
     Call<List<RecipeModel>> getAnswers();
 
     @GET("2017/May/59121517_baking/baking.json")
-    Observable<RecipeModel[]> getAnswers2();
+    Observable<List<RecipeModel>> getAnswers2();
 }

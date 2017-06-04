@@ -1,8 +1,10 @@
-package xavier.jorda.cat.recipe;
+package xavier.jorda.cat.recipe.service;
 
 /**
  * Created by xj1 on 31/05/2017.
  */
+
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,10 +12,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitRecipe
 {
+    private final static String TAG = RetrofitRecipe.class.getSimpleName();
 
     public static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/";
-    private static Retrofit retrofit = null;
 
+    private static Retrofit retrofit = null;
 
     public static Retrofit getClient()
     {
@@ -22,6 +25,7 @@ public class RetrofitRecipe
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return retrofit;
@@ -31,6 +35,8 @@ public class RetrofitRecipe
     {
         Retrofit adapter = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         T service = adapter.create(serviceClass);

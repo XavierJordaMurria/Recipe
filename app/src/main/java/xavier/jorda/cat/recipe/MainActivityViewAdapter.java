@@ -15,12 +15,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
 import xavier.jorda.cat.recipe.model.RecipeModel;
 
 public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityViewHolders>
 {
-    private final static String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
+    private final static String TAG = MainActivityViewAdapter.class.getSimpleName();
 
     private List<RecipeModel> itemList = new ArrayList<>();
 
@@ -70,6 +69,7 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     public void addRecipeList(List<RecipeModel> itemList)
     {
         this.itemList = itemList;
+        this.notifyDataSetChanged();
     }
 
     public void addRecipe(RecipeModel repo)

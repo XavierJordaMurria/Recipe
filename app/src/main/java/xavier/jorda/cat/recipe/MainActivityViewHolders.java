@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
-
 public class MainActivityViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-    private final static String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
+    private final static String TAG = MainActivityViewHolders.class.getSimpleName();
     public TextView mRecipeName;
     public ImageView mRecipePhoto;
 

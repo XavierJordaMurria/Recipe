@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
-
 public class MainActivity extends AppCompatActivity
 {
-    private final static String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     private GridLayoutManager mLayout;
 
@@ -20,12 +18,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         MainActivityViewAdapter rcAdapter = new MainActivityViewAdapter(MainActivity.this);
-        RetrofitWrapper.getRecipesInto2(this, rcAdapter);
+        RetrofitWrapper.getRecipesInto(this, rcAdapter);
 
         mLayout = new GridLayoutManager(MainActivity.this, 2);
         RecyclerView rView = (RecyclerView)findViewById(R.id.recipes_recycler_view);
         rView.setHasFixedSize(true);
         rView.setLayoutManager(mLayout);
         rView.setAdapter(rcAdapter);
+
+
+
+
     }
 }

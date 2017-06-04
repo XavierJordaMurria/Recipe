@@ -11,11 +11,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
-
-import xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService;
 import xavier.jorda.cat.recipe.model.RecipeModel;
+import xavier.jorda.cat.recipe.service.RetrofitRecipe;
+import xavier.jorda.cat.recipe.service.RetrofitRecipeAPIInterface;
 
 /**
  * Created by xj1 on 03/06/2017.
@@ -24,7 +22,7 @@ import xavier.jorda.cat.recipe.model.RecipeModel;
 public class RetrofitWrapper
 {
     private static MyApplication myApp;
-    private final static String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
+    private final static String TAG = RetrofitWrapper.class.getSimpleName();
 
     private static WeakReference<Activity> activityWeakRef_;
 
@@ -34,8 +32,7 @@ public class RetrofitWrapper
         myApp = ((MyApplication)activityWeakRef_.get().getApplication());
 
 
-        RetrofitRecipeAPIInterface apiService =
-                RetrofitRecipe.getClient().create(RetrofitRecipeAPIInterface.class);
+        RetrofitRecipeAPIInterface apiService = RetrofitRecipe.getClient().create(RetrofitRecipeAPIInterface.class);
 
         Call<List<RecipeModel>> call = apiService.getAnswers();
 
@@ -62,9 +59,9 @@ public class RetrofitWrapper
 
     public static void getRecipesInto2(final Activity activity, final MainActivityViewAdapter adapter)
     {
-        RetrofitRecipeAPIInterface gitHubService = RetrofitRecipe.createServiceFrom(RetrofitRecipeAPIInterface.class);
+        RetrofitRecipeAPIInterface recipeAPIInterface = RetrofitRecipe.createServiceFrom(RetrofitRecipeAPIInterface.class);
 
-        gitHubService.getAnswers2()
+        recipeAPIInterface.getAnswers2()
                 .flatMap(Observable::from)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(adapter::addRecipe);
