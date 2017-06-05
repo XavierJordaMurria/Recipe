@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import xavier.jorda.cat.recipe.service.RetrofitWrapper;
+
 public class MainActivity extends AppCompatActivity
 {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -25,9 +27,5 @@ public class MainActivity extends AppCompatActivity
         rView.setHasFixedSize(true);
         rView.setLayoutManager(mLayout);
         rView.setAdapter(rcAdapter);
-
-
-
-
     }
 }

@@ -2,4 +2,6 @@
     <string name="app_name">Recipe</string>
     <string name="RecipePicture_Desc">Recipe picture</string>
     <string name="Recipe_Name">Recipe Name</string>
+    <string name="rectangle_box">rectangle box</string>
+    <string name="hello">Hello</string>
 </resources>

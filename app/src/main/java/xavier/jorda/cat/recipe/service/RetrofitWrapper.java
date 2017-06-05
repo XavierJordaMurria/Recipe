@@ -1,4 +1,4 @@
-package xavier.jorda.cat.recipe;
+package xavier.jorda.cat.recipe.service;
 
 import android.app.Activity;
 import android.util.Log;
@@ -11,9 +11,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import xavier.jorda.cat.recipe.MainActivityViewAdapter;
+import xavier.jorda.cat.recipe.MyApplication;
 import xavier.jorda.cat.recipe.model.RecipeModel;
-import xavier.jorda.cat.recipe.service.RetrofitRecipe;
-import xavier.jorda.cat.recipe.service.RetrofitRecipeAPIInterface;
 
 /**
  * Created by xj1 on 03/06/2017.

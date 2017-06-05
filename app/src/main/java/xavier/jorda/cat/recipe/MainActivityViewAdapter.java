@@ -42,7 +42,7 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     @Override
     public void onBindViewHolder(MainActivityViewHolders holder, int position)
     {
-        holder.mRecipeName.setText(itemList.get(position).getName_());
+        holder.mRecipeName_.setText(itemList.get(position).getName_());
 
         String imgURL = itemList.get(position).getImage();
 
@@ -52,11 +52,11 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
                     .load(imgURL)
                     .resize(50, 50)
                     .centerCrop()
-                    .into(holder.mRecipePhoto);
+                    .into(holder.mRecipePhoto_);
         }
         else
         {
-            Picasso.with(context).load(R.drawable.ic_launcher).into(holder.mRecipePhoto);
+            Picasso.with(context).load(R.drawable.ic_launcher).into(holder.mRecipePhoto_);
         }
     }
 
