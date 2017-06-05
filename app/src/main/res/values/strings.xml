@@ -4,4 +4,7 @@
     <string name="Recipe_Name">Recipe Name</string>
     <string name="rectangle_box">rectangle box</string>
     <string name="hello">Hello</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="quantity">Quantity:</string>
+    <string name="measure">Measure:</string>
 </resources>

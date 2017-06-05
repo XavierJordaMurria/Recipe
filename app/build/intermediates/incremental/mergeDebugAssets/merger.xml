@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/assets"><file name="recipes.json" path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/assets/recipes.json"/></source><source path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/debug/assets"/></dataSet></merger>

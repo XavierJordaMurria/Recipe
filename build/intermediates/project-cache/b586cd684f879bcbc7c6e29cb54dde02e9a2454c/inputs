@@ -1,0 +1,6 @@
+COMMAND=PREDEX_LIBRARY_TO_DEX_ARCHIVE
+FILE_PATH=/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/processing-tools/runtime-deps/debug/desugar_try_with_resources.jar
+FILE_HASH=14d18f2ff744739bf8366b7e3101a26a39d37edd
+DX_VERSION=1.13
+JUMBO_MODE=false
+OPTIMIZE=true

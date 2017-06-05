@@ -1,9 +1,13 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import xavier.jorda.cat.recipe.R;
@@ -15,6 +19,8 @@ import xavier.jorda.cat.recipe.util.Constants;
 
 public class DetailsFragmentActivity extends AppCompatActivity implements StepsFragment.OnItemSelectedListener
 {
+    private int recipeCardPosition = -1; // or other values
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -22,7 +28,6 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         setContentView(R.layout.details_recipe);
 
         Bundle b = getIntent().getExtras();
-        int recipeCardPosition = -1; // or other values
 
         if(b != null)
             recipeCardPosition = b.getInt(Constants.RECIPE_CARD_POSITION);
@@ -35,39 +40,44 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition);
             newFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
 
-            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-            ft1.add(R.id.recipe_steps_fragment_container, newFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.recipe_steps_fragment_container, newFragment)
+//                    .addToBackStack(newFragment.getClass().getSimpleName())
+                    .commit();
         }
     }
 
     @Override
     public void onStepItemSelected(int position)
     {
-        Toast.makeText(this, "Called By Fragment A: position - "+ position, Toast.LENGTH_SHORT).show();
+        DetailsFragment secondFragment;
 
-        // Load Pizza Detail Fragment
-//        PizzaDetailFragment secondFragment = new PizzaDetailFragment();
-//
-//        Bundle args = new Bundle();
-//        args.putInt("position", position);
-//        secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
-//
-//
-//        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-//        {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.flContainer2, secondFragment) // replace flContainer
-//                    //.addToBackStack(null)
-//                    .commit();
-//        }
-//        else
-//        {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.flContainer, secondFragment) // replace flContainer
+        if( position == -1)
+            secondFragment  = new IngredientsFragment();
+        else
+            secondFragment  = new IngredientsFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition);
+        secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
 //                    .addToBackStack(null)
-//                    .commit();
-//        }
+                    .commit();
+        }
+        else
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
+//                    .addToBackStack(secondFragment.getClass().getSimpleName())
+                    .commit();
+        }
     }
+
 }

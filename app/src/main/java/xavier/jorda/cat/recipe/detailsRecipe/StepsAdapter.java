@@ -31,26 +31,23 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder>
         {
             super(v);
             textView_ = v;
+            textView_.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v)
         {
-
+            TextView textView = (TextView)v;
+            delegate_.onStepItemSelected(parseBoxText(textView.getText().toString()));
         }
-    }
-
-    public interface AdapterDelegate
-    {
-        public void onStepClicked(int i);
     }
 
     private final static String TAG = StepsAdapter.class.getSimpleName();
     private Context context;
     private List<String> dataSet_= new ArrayList<>();
-    private AdapterDelegate delegate_;
+    private StepsFragment.OnItemSelectedListener delegate_;
 
-    public StepsAdapter(Context context, RecipeModel recipe, AdapterDelegate delegate)
+    public StepsAdapter(Context context, RecipeModel recipe, StepsFragment.OnItemSelectedListener delegate)
     {
         this.context = context;
         this.delegate_ = delegate;
@@ -91,5 +88,18 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder>
             dataSet_.add(Constants.SETP+"#"+i+" "+recipe.getSteps_().get(i).getShortDescription_());
 
         this.notifyDataSetChanged();
+    }
+
+    private int parseBoxText(String text)
+    {
+        if(text.equals(Constants.INGREDIENTS))
+            return -1;
+        else
+        {
+            String[] tmpStepNumArr = text.split(" ");
+            String tmp = tmpStepNumArr[0].split("#")[1];
+
+            return Integer.parseInt(tmp);
+        }
     }
 }

@@ -33,7 +33,6 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     @Override
     public MainActivityViewHolders onCreateViewHolder(ViewGroup parent, int viewType)
     {
-
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_list, null);
         MainActivityViewHolders rcv = new MainActivityViewHolders(layoutView);
         return rcv;

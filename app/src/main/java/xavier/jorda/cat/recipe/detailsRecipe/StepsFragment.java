@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import xavier.jorda.cat.recipe.util.Constants;
  * Created by xj1 on 04/06/2017.
  */
 
-public class StepsFragment extends Fragment implements StepsAdapter.AdapterDelegate
+public class StepsFragment extends Fragment
 {
-    public static final String EXTRA_URL ="url";
+    private final static String TAG = StepsFragment.class.getSimpleName();
 
     private OnItemSelectedListener listener_;
     private int recipeCardPosition_;
@@ -41,7 +42,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.AdapterDeleg
         {
             // Get back arguments
             if(getArguments() == null)
-                return;;
+                return;
 
             recipeCardPosition_ = getArguments().getInt(Constants.RECIPE_CARD_POSITION, 0);
             RecipeModel recipe = myApp.recipes.get(recipeCardPosition_);
@@ -49,7 +50,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.AdapterDeleg
             // use a linear layout manager
             mLayoutManager = new LinearLayoutManager(getActivity());
 
-            rcAdapter = new StepsAdapter(getContext(), recipe, this);
+            rcAdapter = new StepsAdapter(getContext(), recipe, listener_);
 
         }
     }
@@ -63,6 +64,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.AdapterDeleg
 
         rView_ = (RecyclerView)view.findViewById(R.id.steps_recycler_view);
         rView_.setHasFixedSize(true);
+
         rView_.setLayoutManager(mLayoutManager);
         rView_.setAdapter(rcAdapter);
         return view;
@@ -88,12 +90,6 @@ public class StepsFragment extends Fragment implements StepsAdapter.AdapterDeleg
         else
             throw new ClassCastException(context.toString()
                     + " must implement StepsFragment.OnItemSelectedListener");
-    }
-
-    @Override
-    public void onStepClicked(int i)
-    {
-
     }
 
     // Define the events that the fragment will use to communicate

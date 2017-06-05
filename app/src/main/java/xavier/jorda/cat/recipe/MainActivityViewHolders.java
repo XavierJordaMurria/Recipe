@@ -38,8 +38,6 @@ public class MainActivityViewHolders extends RecyclerView.ViewHolder implements 
     @Override
     public void onClick(View view)
     {
-        Toast.makeText(view.getContext(), "Clicked Country Position = " + getLayoutPosition(), Toast.LENGTH_SHORT).show();
-
         Log.d(TAG,"Clicked item at position:" + getLayoutPosition());
 
         Intent mIntent = new Intent(mainViewContext_, DetailsFragmentActivity.class);
