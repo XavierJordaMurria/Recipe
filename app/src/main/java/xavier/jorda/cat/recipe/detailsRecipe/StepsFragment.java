@@ -72,13 +72,6 @@ public class StepsFragment extends Fragment implements StepsAdapter.AdapterDeleg
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-
-        Bundle bundle = getArguments();
-        if (bundle != null)
-        {
-            String link = bundle.getString("url");
-//            setText(link);
-        }
     }
 
     //--OnItemSelectedListener listener;
