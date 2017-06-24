@@ -1,8 +1,6 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +17,9 @@ import xavier.jorda.cat.recipe.util.Constants;
  * Created by xj1 on 04/06/2017.
  */
 
-public class IngredientsFragment extends DetailsFragment
+public class IngredientsDetailsFragment extends DetailsFragment
 {
-    private final static String TAG = IngredientsFragment.class.getSimpleName();
+    private final static String TAG = IngredientsDetailsFragment.class.getSimpleName();
 
     private int recipeCardPosition_;
     private MyApplication myApp;

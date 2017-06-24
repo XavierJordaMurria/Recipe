@@ -1,14 +1,9 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
-import android.annotation.SuppressLint;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import xavier.jorda.cat.recipe.R;
 import xavier.jorda.cat.recipe.util.Constants;
@@ -49,16 +44,32 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     }
 
     @Override
+    public void onBackPressed()
+    {
+        // Catch back action and pops from backstack
+        // (if you called previously to addToBackStack() in your transaction)
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getSupportFragmentManager().popBackStack();
+        }
+        // Default action on back pressed
+        else super.onBackPressed();
+    }
+
+    @Override
     public void onStepItemSelected(int position)
     {
         DetailsFragment secondFragment;
+        Bundle args = new Bundle();
 
         if( position == -1)
-            secondFragment  = new IngredientsFragment();
+            secondFragment  = new IngredientsDetailsFragment();
         else
-            secondFragment  = new IngredientsFragment();
+        {
+            secondFragment = new StepDetailsFragment();
+            args.putInt(Constants.STEP_NUMBER, position);
+        }
 
-        Bundle args = new Bundle();
         args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition);
         secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
 
@@ -67,7 +78,7 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-//                    .addToBackStack(null)
+                    .addToBackStack(null)
                     .commit();
         }
         else
@@ -75,7 +86,7 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-//                    .addToBackStack(secondFragment.getClass().getSimpleName())
+                    .addToBackStack(secondFragment.getClass().getSimpleName())
                     .commit();
         }
     }
