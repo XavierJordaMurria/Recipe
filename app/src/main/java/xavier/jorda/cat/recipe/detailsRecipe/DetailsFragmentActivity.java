@@ -3,6 +3,7 @@ package xavier.jorda.cat.recipe.detailsRecipe;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import xavier.jorda.cat.recipe.R;
@@ -46,14 +47,21 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     @Override
     public void onBackPressed()
     {
-        // Catch back action and pops from backstack
-        // (if you called previously to addToBackStack() in your transaction)
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+        if (currentFragment() instanceof StepsFragment)
+            super.onBackPressed();
+        else
         {
-            getSupportFragmentManager().popBackStack();
+            StepsFragment newFragment = new StepsFragment();
+            Bundle args = new Bundle();
+            args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition);
+            newFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.recipe_steps_fragment_container, newFragment)
+//                    .addToBackStack(newFragment.getClass().getSimpleName())
+                    .commit();
         }
-        // Default action on back pressed
-        else super.onBackPressed();
     }
 
     @Override
@@ -78,7 +86,7 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-                    .addToBackStack(null)
+//                    .addToBackStack(null)
                     .commit();
         }
         else
@@ -86,9 +94,13 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-                    .addToBackStack(secondFragment.getClass().getSimpleName())
+//                    .addToBackStack(secondFragment.getClass().getSimpleName())
                     .commit();
         }
     }
 
+    private Fragment currentFragment()
+    {
+        return getSupportFragmentManager().findFragmentById(R.id.recipe_steps_fragment_container);
+    }
 }

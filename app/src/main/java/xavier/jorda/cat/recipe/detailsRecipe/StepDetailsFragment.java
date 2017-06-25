@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
     private int recipeCardPosition_;
     private int stepNumber_;
+    private int numOfSteps_;
     private StepsComponents stepsComponents_;
 
     private static MediaSessionCompat mediaSession_;
@@ -67,6 +70,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     {
         super.onCreate(savedInstanceState);
 
+        Log.d(TAG,"onCreate");
         myApp = (MyApplication)getActivity().getApplication();
 
         if(savedInstanceState == null)
@@ -77,6 +81,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
             recipeCardPosition_ = getArguments().getInt(Constants.RECIPE_CARD_POSITION, 0);
             stepNumber_ = getArguments().getInt(Constants.STEP_NUMBER, 0);
+            numOfSteps_ = myApp.recipes.get(recipeCardPosition_).getSteps_().size();
 
             stepsComponents_ = myApp.recipes.get(recipeCardPosition_).getSteps_().get(stepNumber_);
 
@@ -87,6 +92,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        Log.d(TAG,"onCreateView");
         View view = inflater.inflate(R.layout.step_details, container, false);
 
         stepNum_ = (TextView)view.findViewById(R.id.stepNum_StepDetails);
@@ -122,6 +128,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        Log.d(TAG,"onActivityCreated");
     }
 
     //--OnItemSelectedListener listener;
@@ -132,12 +139,24 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     public void onAttach(Context context)
     {
         super.onAttach(context);
+        Log.d(TAG,"onAttach");
 
         if(context instanceof StepsFragment.OnItemSelectedListener)  // context instanceof YourActivity
             this.listener_ = (StepsFragment.OnItemSelectedListener) context; // = (YourActivity) context
         else
             throw new ClassCastException(context.toString()
                     + " must implement StepsFragment.OnItemSelectedListener");
+    }
+
+
+    @CallSuper
+    public void onPause()
+    {
+        super.onPause();
+
+        Log.d(TAG,"onPause");
+        releasePlayer();
+        mediaSession_.setActive(false);
     }
 
     /**
@@ -147,8 +166,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     public void onDestroy()
     {
         super.onDestroy();
-        releasePlayer();
-        mediaSession_.setActive(false);
+        Log.d(TAG,"onDestroy");
     }
 
 
@@ -220,6 +238,9 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
      */
     private void releasePlayer()
     {
+        if(exoPlayer_ == null)
+            return;
+
         exoPlayer_.stop();
         exoPlayer_.release();
         exoPlayer_ = null;
@@ -290,12 +311,14 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     private void goPrev()
     {
         releasePlayer();
-        listener_.onStepItemSelected(--stepNumber_);
+        int preStep = (stepNumber_ - 1) % numOfSteps_;
+        listener_.onStepItemSelected(preStep);
     }
 
     private void goNext()
     {
         releasePlayer();
-        listener_.onStepItemSelected(++stepNumber_);
+        int nextStep = (stepNumber_ + 1) % numOfSteps_;
+        listener_.onStepItemSelected(nextStep);
     }
 }
