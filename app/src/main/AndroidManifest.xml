@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".detailsRecipe.DetailsFragmentActivity"></activity>
+        <activity android:name=".detailsRecipe.DetailsFragmentActivity"
+                  android:configChanges="orientation">
+        </activity>
 
         <service
             android:name=".fcm.MyFirebaseMessagingService">

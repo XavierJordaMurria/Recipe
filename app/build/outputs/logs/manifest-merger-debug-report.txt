@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
 MERGED from [com.android.support:appcompat-v7:25.1.0] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/d232b74dbd02edb4ecd2a2b06addd931/AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:cardview-v7:25.3.1] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/cardview-v7-25.3.1.aar/da966265f35d8c2edb82422f479dbec4/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/74ba3c106def2ef5036e02904a3334b9/AndroidManifest.xml:17:1-26:12
@@ -33,9 +33,9 @@ MERGED from [com.android.support:support-media-compat:25.2.0] /Users/XavierJorda
 MERGED from [com.android.support:support-core-ui:25.3.1] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/96dedec3308ac47df69ab8c0e4e85bee/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-core-utils:25.2.0] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.2.0.aar/468033852ff1ca0f4de0550b8c5a162e/AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:support-compat:25.3.1] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/b4a157630de3a94d1fd149b1c3823f3f/AndroidManifest.xml:17:1-31:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
-INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-43:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:2:1-45:12
 	package
 		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:3:11-44
 		INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml
@@ -63,7 +63,7 @@ ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/An
 	android:name
 		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:6:22-71
 application
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:8:5-41:19
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:8:5-43:19
 MERGED from [com.android.support:appcompat-v7:25.1.0] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/d232b74dbd02edb4ecd2a2b06addd931/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:appcompat-v7:25.1.0] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/d232b74dbd02edb4ecd2a2b06addd931/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:cardview-v7:25.3.1] /Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/cardview-v7-25.3.1.aar/da966265f35d8c2edb82422f479dbec4/AndroidManifest.xml:26:5-20
@@ -133,29 +133,31 @@ ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/An
 	android:name
 		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:21:27-74
 activity#xavier.jorda.cat.recipe.detailsRecipe.DetailsFragmentActivity
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:25:9-84
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:25:9-27:20
+	android:configChanges
+		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:26:19-54
 	android:name
 		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:25:19-72
 service#xavier.jorda.cat.recipe.fcm.MyFirebaseMessagingService
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:27:9-32:19
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:29:9-34:19
 	android:name
-		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:28:13-59
+		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:30:13-59
 intent-filter#com.google.firebase.MESSAGING_EVENT
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:29:13-31:29
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:31:13-33:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:30:17-77
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:32:17-77
 	android:name
-		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:30:25-75
+		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:32:25-75
 service#xavier.jorda.cat.recipe.fcm.MyFirebaseInstanceIdService
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:34:9-39:19
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:36:9-41:19
 	android:name
-		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:35:13-60
+		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:37:13-60
 intent-filter#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:36:13-38:29
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:38:13-40:29
 action#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:37:17-79
+ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:39:17-79
 	android:name
-		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:37:25-77
+		ADDED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml:39:25-77
 uses-sdk
 INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/AndroidManifest.xml

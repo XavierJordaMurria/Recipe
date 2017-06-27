@@ -19,7 +19,7 @@ import xavier.jorda.cat.recipe.util.Constants;
  * Created by xj1 on 04/06/2017.
  */
 
-public class StepsFragment extends Fragment
+public class StepsFragment extends DetailsFragment
 {
     private final static String TAG = StepsFragment.class.getSimpleName();
 

@@ -42,7 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="xavier.jorda.cat.recipe.detailsRecipe.DetailsFragmentActivity" />
+        <activity
+            android:name="xavier.jorda.cat.recipe.detailsRecipe.DetailsFragmentActivity"
+            android:configChanges="orientation" >
+        </activity>
 
         <service android:name="xavier.jorda.cat.recipe.fcm.MyFirebaseMessagingService" >
             <intent-filter>

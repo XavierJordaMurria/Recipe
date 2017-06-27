@@ -1,5 +1,6 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,8 @@ import xavier.jorda.cat.recipe.R;
 import xavier.jorda.cat.recipe.model.StepsComponents;
 import xavier.jorda.cat.recipe.util.Constants;
 
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 /**
  * Created by xj1 on 24/06/2017.
  */
@@ -73,8 +76,8 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
         Log.d(TAG,"onCreate");
         myApp = (MyApplication)getActivity().getApplication();
 
-        if(savedInstanceState == null)
-        {
+//        if(savedInstanceState == null)
+//        {
             // Get back arguments
             if(getArguments() == null)
                 return;
@@ -85,7 +88,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
             stepsComponents_ = myApp.recipes.get(recipeCardPosition_).getSteps_().get(stepNumber_);
 
-        }
+//        }
     }
 
     @Override
@@ -95,14 +98,17 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
         Log.d(TAG,"onCreateView");
         View view = inflater.inflate(R.layout.step_details, container, false);
 
-        stepNum_ = (TextView)view.findViewById(R.id.stepNum_StepDetails);
-        stepNum_.setText(getString(R.string.stepNum, stepsComponents_.getId_()));
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT)
+        {
+            stepNum_ = (TextView) view.findViewById(R.id.stepNum_StepDetails);
+            stepNum_.setText(getString(R.string.stepNum, stepsComponents_.getId_()));
 
-        stepInfo_ = (TextView)view.findViewById(R.id.stepInfo_StepDetails);
-        stepInfo_.setText(stepsComponents_.getShortDescription_());
+            stepInfo_ = (TextView) view.findViewById(R.id.stepInfo_StepDetails);
+            stepInfo_.setText(stepsComponents_.getShortDescription_());
 
-        stepDescription_ = (TextView)view.findViewById(R.id.description_StepDetails);
-        stepDescription_.setText(stepsComponents_.getDescription_());
+            stepDescription_ = (TextView) view.findViewById(R.id.description_StepDetails);
+            stepDescription_.setText(stepsComponents_.getDescription_());
+        }
 
         playerView_ = (SimpleExoPlayerView)view.findViewById(R.id.playerView);
 

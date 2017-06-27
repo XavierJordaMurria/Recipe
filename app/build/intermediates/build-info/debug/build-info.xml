@@ -3,12 +3,12 @@
     build-mode="FULL"
     format="10"
     plugin-version="3.0.0-alpha2"
-    timestamp="1498389058306"
+    timestamp="1498460059628"
     verifier="NOT_RUN" >
 
     <task
         name="javac"
-        duration="190" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
@@ -19,17 +19,9 @@
         name="verifier"
         duration="0" />
 
-    <artifact
-        location="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/outputs/apk/debug/app-debug.apk"
-        type="MAIN" />
-
     <build
         build-mode="FULL"
-        timestamp="1498389058306"
-        verifier="NOT_RUN" >
-        <artifact
-            location="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/outputs/apk/debug/app-debug.apk"
-            type="MAIN" />
-    </build>
+        timestamp="1498460059628"
+        verifier="NOT_RUN" />
 
 </instant-run>
