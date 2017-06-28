@@ -1,4 +1,7 @@
-#Mon Jun 26 07:52:21 BST 2017
-base.0=/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/transforms/dexMerger/debug/0
+#Wed Jun 28 07:23:54 BST 2017
+base.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/12
+renamed.1=classes2.dex
 renamed.0=classes.dex
-file.0=/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex
+file.1=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/11/classes.dex
+base.1=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/11
+file.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/12/classes.dex

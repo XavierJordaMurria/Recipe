@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,11 +25,12 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     private int stepNum_ = -1; // or other values
     private DetailsFragment newFragment;
 
+    private enum loadFrgType_ {ADD_FRG, REPLACE_FRG};
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
-        outState.putInt("recipeCardPosition_", recipeCardPosition_);
-        outState.putInt("stepNum_", stepNum_);
+        outState.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
+        outState.putInt(Constants.STEP_NUMBER, stepNum_);
         super.onSaveInstanceState(outState);
     }
 
@@ -39,55 +41,41 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
 
         Log.d(TAG, "onCreate");
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         setContentView(R.layout.details_recipe);
 
         Bundle b = getIntent().getExtras();
         if(b != null)
             recipeCardPosition_ = b.getInt(Constants.RECIPE_CARD_POSITION);
 
+        Bundle args = new Bundle();
+        args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
 
         if (savedInstanceState == null)
         {
-//            setContentView(R.layout.details_recipe);
-            newFragment = new StepsFragment();
-
-            Bundle args = new Bundle();
-            args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
-            newFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
-
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .add(R.id.recipe_steps_fragment_container, newFragment)
-////                    .addToBackStack(newFragment.getClass().getSimpleName())
-//                    .commit();
+            loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
         }
+        else if (currentFragment() instanceof StepDetailsFragment &&
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            args.putInt(Constants.RECIPE_CARD_POSITION, savedInstanceState.getInt(Constants.RECIPE_CARD_POSITION));
+            args.putInt(Constants.STEP_NUMBER, savedInstanceState.getInt(Constants.STEP_NUMBER));
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.recipe_steps_fragment_container, newFragment)
-//                    .addToBackStack(newFragment.getClass().getSimpleName())
-                .commit();
+            loadFragment(new StepDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+        }
     }
 
     @Override
     public void onBackPressed()
     {
+        Log.d(TAG, "onBackPressed");
         if (currentFragment() instanceof StepsFragment)
             super.onBackPressed();
         else
         {
-            StepsFragment newFragment = new StepsFragment();
             Bundle args = new Bundle();
             args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
-            newFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.recipe_steps_fragment_container, newFragment)
-//                    .addToBackStack(newFragment.getClass().getSimpleName())
-                    .commit();
+            loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
         }
     }
 
@@ -116,7 +104,6 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
             newFragment.setArguments(args);
         }
-
     }
 
     @Override
@@ -139,28 +126,41 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         }
 
         args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
-        secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-//                    .addToBackStack(null)
-                    .commit();
+            loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+
         }
         else
         {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.recipe_steps_fragment_container, secondFragment) // replace flContainer
-//                    .addToBackStack(secondFragment.getClass().getSimpleName())
-                    .commit();
+            loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
         }
     }
 
     private Fragment currentFragment()
     {
         return getSupportFragmentManager().findFragmentById(R.id.recipe_steps_fragment_container);
+    }
+
+    private void loadFragment(Fragment newFragment, loadFrgType_ loadFrgType, int containerViewID, Bundle args)
+    {
+        if (args != null)
+            newFragment.setArguments(args);
+
+        FragmentManager frgManager = getSupportFragmentManager();
+
+        if (loadFrgType == loadFrgType_.ADD_FRG) {
+            frgManager
+                    .beginTransaction()
+                    .add(containerViewID, newFragment)
+                    .commit();
+        }
+        else{
+            frgManager
+                    .beginTransaction()
+                    .replace(containerViewID, newFragment)
+                    .commit();
+        }
     }
 }

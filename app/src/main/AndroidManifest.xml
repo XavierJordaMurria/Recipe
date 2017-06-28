@@ -22,8 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".detailsRecipe.DetailsFragmentActivity"
-                  android:configChanges="orientation">
+        <activity android:name=".detailsRecipe.DetailsFragmentActivity">
         </activity>
 
         <service

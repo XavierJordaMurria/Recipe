@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/xj1/Documents/GitHub/Recipe/app/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/xj1/Documents/GitHub/Recipe/app/src/debug/shaders"/></dataSet></merger>
