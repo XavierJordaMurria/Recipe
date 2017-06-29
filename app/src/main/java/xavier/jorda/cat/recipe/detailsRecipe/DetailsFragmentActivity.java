@@ -3,11 +3,13 @@ package xavier.jorda.cat.recipe.detailsRecipe;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import xavier.jorda.cat.recipe.R;
@@ -50,6 +52,12 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         Bundle args = new Bundle();
         args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
 
+
+        Fragment tmp = currentFragment();
+        int tmp1 = getResources().getConfiguration().orientation;
+
+        FrameLayout details = (FrameLayout) findViewById(R.id.recipe_step_fragment_details);
+
         if (savedInstanceState == null)
         {
             loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
@@ -61,6 +69,15 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             args.putInt(Constants.STEP_NUMBER, savedInstanceState.getInt(Constants.STEP_NUMBER));
 
             loadFragment(new StepDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+        }
+        else if (currentFragment() instanceof StepsFragment &&
+                (details != null))
+        {
+            args.putInt(Constants.RECIPE_CARD_POSITION, savedInstanceState.getInt(Constants.RECIPE_CARD_POSITION));
+            args.putInt(Constants.STEP_NUMBER, savedInstanceState.getInt(Constants.STEP_NUMBER));
+
+            loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+            loadFragment(new StepDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
         }
     }
 
@@ -127,14 +144,21 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
 
         args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+        FrameLayout details = (FrameLayout) findViewById(R.id.recipe_step_fragment_details);
 
+        if(details == null)
+        {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+            else
+                loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
         }
         else
         {
-            loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
+            else
+                loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
         }
     }
 
