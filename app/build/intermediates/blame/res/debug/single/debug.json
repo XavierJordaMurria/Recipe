@@ -324,6 +324,10 @@
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/drawable-hdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
+        "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/drawable-nodpi_example_appwidget_preview.png.flat",
+        "source": "/Users/xj1/Documents/GitHub/Recipe/app/src/main/res/drawable-nodpi/example_appwidget_preview.png"
+    },
+    {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
@@ -640,16 +644,16 @@
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/layout/abc_list_menu_item_icon.xml"
     },
     {
-        "merged": "/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
-        "source": "/Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/d232b74dbd02edb4ecd2a2b06addd931/res/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
+        "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/drawable_abc_list_selector_holo_dark.xml.flat",
+        "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/drawable/abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/layout-v11_notification_template_big_media_narrow.xml.flat",
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/layout-v11/notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/drawable_abc_list_selector_holo_dark.xml.flat",
-        "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/drawable/abc_list_selector_holo_dark.xml"
+        "merged": "/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
+        "source": "/Users/XavierJorda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/d232b74dbd02edb4ecd2a2b06addd931/res/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/XavierJorda/Documents/PortFolio_Android/Recipe/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_black_48dp.png.flat",
@@ -738,6 +742,10 @@
     {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/layout_abc_action_bar_title_item.xml.flat",
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/layout_recipe_widget.xml.flat",
+        "source": "/Users/xj1/Documents/GitHub/Recipe/app/src/main/res/layout/recipe_widget.xml"
     },
     {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
@@ -1178,6 +1186,10 @@
     {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/color-v23_abc_tint_seek_thumb.xml.flat",
         "source": "/Users/xj1/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.1.0.aar/556f05728d3ad2a34618225b4162b8f2/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/xml_recipe_widget_info.xml.flat",
+        "source": "/Users/xj1/Documents/GitHub/Recipe/app/src/main/res/xml/recipe_widget_info.xml"
     },
     {
         "merged": "/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/res/merged/debug/drawable_abc_btn_default_mtrl_shape.xml.flat",

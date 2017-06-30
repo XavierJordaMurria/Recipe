@@ -10,4 +10,6 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="stepNum">Step: %d</string>
+    <string name="appwidget_text">RecipeS</string>
+    <string name="add_widget">Add widget</string>
 </resources>

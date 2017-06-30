@@ -52,15 +52,15 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         Bundle args = new Bundle();
         args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
 
-
-        Fragment tmp = currentFragment();
-        int tmp1 = getResources().getConfiguration().orientation;
-
         FrameLayout details = (FrameLayout) findViewById(R.id.recipe_step_fragment_details);
 
         if (savedInstanceState == null)
         {
             loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
+
+            if (details != null)
+                loadFragment(new IngredientsDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
+
         }
         else if (currentFragment() instanceof StepDetailsFragment &&
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)

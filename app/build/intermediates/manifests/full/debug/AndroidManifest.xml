@@ -42,8 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="xavier.jorda.cat.recipe.detailsRecipe.DetailsFragmentActivity" >
-        </activity>
+        <activity android:name="xavier.jorda.cat.recipe.detailsRecipe.DetailsFragmentActivity" />
 
         <service android:name="xavier.jorda.cat.recipe.fcm.MyFirebaseMessagingService" >
             <intent-filter>
@@ -56,6 +55,15 @@
             </intent-filter>
         </service>
 
+        <receiver android:name="xavier.jorda.cat.recipe.RecipeWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_info" />
+        </receiver>
         <!--
          FirebaseMessagingService performs security checks at runtime,
              no need for explicit permissions despite exported="true"
