@@ -4,11 +4,9 @@ package xavier.jorda.cat.recipe.model;
  * Created by xj1 on 31/05/2017.
  */
 
-
 import com.google.gson.annotations.SerializedName;
 
-public class StepsComponents
-{
+public class StepsComponents {
     @SerializedName("id")
     private int id_;
     @SerializedName("shortDescription")

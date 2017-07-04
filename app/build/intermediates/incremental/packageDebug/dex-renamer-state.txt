@@ -1,4 +1,7 @@
-#Sat Jul 01 10:13:10 BST 2017
-base.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/14
+#Mon Jul 03 20:14:59 BST 2017
+base.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/26
+renamed.1=classes2.dex
 renamed.0=classes.dex
-file.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/14/classes.dex
+file.1=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/25/classes.dex
+base.1=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/25
+file.0=/Users/xj1/Documents/GitHub/Recipe/app/build/intermediates/transforms/dexMerger/debug/26/classes.dex

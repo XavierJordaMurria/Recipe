@@ -1,45 +1,54 @@
 package xavier.jorda.cat.recipe;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import java.util.ArrayList;
+
+import xavier.jorda.cat.recipe.util.Constants;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class RecipeWidget extends AppWidgetProvider {
+public class RecipeWidget extends AppWidgetProvider
+{
 
     private static String TAG = RecipeWidget.class.getSimpleName();
+    private AppWidgetManager appWidgetManager_;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+                         int[] appWidgetIds)
+    {
+        updateWidgetView(context,
+                appWidgetManager,
+                AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, RecipeWidget.class)),
+                null);
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-
-
-        Intent configIntent = new Intent (context, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.appwidget_text, pIntent);
-
-
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
+    public void onReceive(Context context, Intent intent)
     {
-        Log.d(TAG, "onUpdate");
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+        super.onReceive(context, intent);
+
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        ArrayList<String> stepList = intent.getStringArrayListExtra(Constants.STEP_LIST);
+
+        if(manager != null) {
+            updateWidgetView(context,
+                    manager,
+                    AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, RecipeWidget.class)),
+                    stepList);
         }
     }
 
@@ -55,6 +64,35 @@ public class RecipeWidget extends AppWidgetProvider {
     {
         Log.d(TAG, "onDisabled");
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    private void updateWidgetView(Context context, AppWidgetManager appWidgetManager,
+                                  int[] appWidgetIds, ArrayList<String> stepList)
+    {
+        for (int widgetId : appWidgetIds)
+        {
+            RemoteViews mView = initViews(context, widgetId, stepList);
+            appWidgetManager.updateAppWidget(widgetId, mView);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    private RemoteViews initViews(Context context, int widgetId, ArrayList<String> stepList)
+    {
+        RemoteViews mView = new RemoteViews(context.getPackageName(),
+                R.layout.recipe_widget);
+
+        Intent intent = new Intent(context, WidgetService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+
+        if(stepList != null)
+            intent.putStringArrayListExtra(Constants.STEP_LIST,stepList);
+
+        mView.setRemoteAdapter(widgetId, R.id.widgetCollectionList, intent);
+
+        return mView;
     }
 }
 

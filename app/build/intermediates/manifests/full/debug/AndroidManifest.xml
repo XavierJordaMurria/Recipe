@@ -55,9 +55,16 @@
             </intent-filter>
         </service>
 
+        <!-- Widget service -->
+        <service
+            android:name="xavier.jorda.cat.recipe.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" >
+        </service>
+
         <receiver android:name="xavier.jorda.cat.recipe.RecipeWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="xavier.jorda.cat.recipe.WIDGET_DATA" />
             </intent-filter>
 
             <meta-data

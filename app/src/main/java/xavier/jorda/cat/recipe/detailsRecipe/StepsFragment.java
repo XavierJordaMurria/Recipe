@@ -1,8 +1,11 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcel;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xavier.jorda.cat.recipe.MyApplication;
 import xavier.jorda.cat.recipe.R;
+import xavier.jorda.cat.recipe.RecipeWidget;
 import xavier.jorda.cat.recipe.model.RecipeModel;
+import xavier.jorda.cat.recipe.model.StepsComponents;
 import xavier.jorda.cat.recipe.util.Constants;
 
 /**
@@ -50,6 +58,8 @@ public class StepsFragment extends DetailsFragment
             mLayoutManager = new LinearLayoutManager(getActivity());
 
             rcAdapter = new StepsAdapter(getContext(), recipe, listener_);
+
+            sendIntent2Widget(recipe.getName_(), recipe.getSteps_());
 
         }
     }
@@ -96,5 +106,37 @@ public class StepsFragment extends DetailsFragment
     {
         // This can be any number of events to be sent to the activity
         void onStepItemSelected(int position);
+    }
+
+    private void sendIntent2Widget(String recipeName, List<StepsComponents> stepsComponents)
+    {
+        final ArrayList<String> stepsModel = getStepsFromRecipe(stepsComponents);
+        Context context = getContext();
+        stepsModel.add(recipeName);
+
+        // Create the text message with a string
+        Intent sendIntent = new Intent(context, RecipeWidget.class);
+        sendIntent.setAction("xavier.jorda.cat.recipe.WIDGET_DATA");
+        sendIntent.putStringArrayListExtra(Constants.STEP_LIST,stepsModel);
+
+        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, RecipeWidget.class));
+        if(ids != null && ids.length > 0) {
+            sendIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            context.sendBroadcast(sendIntent);
+        }
+    }
+
+    private ArrayList<String> getStepsFromRecipe(List<StepsComponents> stepsComponents)
+    {
+        ArrayList<String> dataSet = new ArrayList<>();
+        int stepsNum = stepsComponents.size();
+
+        for(int i = 0; i < stepsNum; i++)
+        {
+            String label = Constants.STEP + "#" + i + " " + stepsComponents.get(i).getShortDescription_();
+            dataSet.add(label);
+        }
+
+        return dataSet;
     }
 }

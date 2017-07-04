@@ -9,5 +9,6 @@ public class Constants
     public final static String RECIPE_CARD_POSITION = "RECIPE_CARD_POSITION";
     public final static String STEP_NUMBER = "STEP_NUMBER";
     public final static String INGREDIENTS = "INGREDIENTS";
-    public final static String SETP = "SETP";
+    public final static String STEP = "STEP";
+    public final static String STEP_LIST = "STEP_LIST";
 }

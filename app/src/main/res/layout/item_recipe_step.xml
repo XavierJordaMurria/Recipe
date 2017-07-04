@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/recipe_step"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="15dp"
-          android:paddingBottom="15dp"
-          android:layout_margin="1dp"
-          android:gravity="center"
-          android:text="@string/hello"
-          android:background="@drawable/rectangle"
-          android:textColor="#000000" />
+<android.support.v7.widget.CardView
+xmlns:card_view="http://schemas.android.com/apk/res-auto"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/recipe_step"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+card_view:cardUseCompatPadding="true"
+card_view:cardCornerRadius="8dp"
+android:layout_marginBottom="16dp">
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/recipe_step_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/RecipePicture_Desc"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/recipe_step_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:text="@string/Recipe_Name"
+        android:gravity="center"
+        android:layout_below="@+id/recipe_photo"
+        android:paddingBottom="8dp"
+        android:paddingTop="18dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
+</android.support.v7.widget.CardView>
 
