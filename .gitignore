@@ -4,12 +4,11 @@
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+app/build/*
 /captures
 .externalNativeBuild
 *.class
 *.class
 *.class
 *.class
-app/build/intermediates/classes/debug/android/support/constraint/R$styleable.class
 *.class

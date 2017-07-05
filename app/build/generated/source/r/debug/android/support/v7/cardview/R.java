@@ -39,8 +39,8 @@ public final class R {
     }
     public static final class styleable {
         public static final int[] CardView = { 0x0101013f, 0x01010140, 0x7f02003f, 0x7f020040, 0x7f020041, 0x7f020042, 0x7f020043, 0x7f020044, 0x7f02005f, 0x7f020060, 0x7f020061, 0x7f020062, 0x7f020063 };
-        public static final int CardView_android_minHeight = 1;
         public static final int CardView_android_minWidth = 0;
+        public static final int CardView_android_minHeight = 1;
         public static final int CardView_cardBackgroundColor = 2;
         public static final int CardView_cardCornerRadius = 3;
         public static final int CardView_cardElevation = 4;
