@@ -19,14 +19,10 @@ import xavier.jorda.cat.recipe.util.Constants;
 @SuppressLint("NewApi")
 public class WidgetDataProvider implements RemoteViewsFactory
 {
+    private ArrayList<String> collections_ = new ArrayList<>();
+    private Context context_ = null;
 
-    ArrayList<String> collections_ = new ArrayList<>();
-
-    Context context_ = null;
-
-
-
-    public WidgetDataProvider(Context context, Intent intent)
+    WidgetDataProvider(Context context, Intent intent)
     {
         context_ = context;
         collections_ = intent.getStringArrayListExtra(Constants.STEP_LIST);
@@ -55,7 +51,7 @@ public class WidgetDataProvider implements RemoteViewsFactory
     {
         RemoteViews mView = new RemoteViews(context_.getPackageName(),
                 android.R.layout.simple_list_item_1);
-        mView.setTextViewText(android.R.id.text1, collections_.get(position).toString());
+        mView.setTextViewText(android.R.id.text1, collections_.get(position));
         mView.setTextColor(android.R.id.text1, Color.BLACK);
         return mView;
     }
@@ -74,12 +70,10 @@ public class WidgetDataProvider implements RemoteViewsFactory
 
     @Override
     public void onCreate() {
-
     }
 
     @Override
     public void onDataSetChanged() {
-
     }
 
     @Override

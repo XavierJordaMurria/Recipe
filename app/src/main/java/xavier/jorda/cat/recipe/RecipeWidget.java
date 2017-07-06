@@ -28,12 +28,12 @@ public class RecipeWidget extends AppWidgetProvider
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds)
     {
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
+
         updateWidgetView(context,
                 appWidgetManager,
                 AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, RecipeWidget.class)),
                 null);
-
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -41,8 +41,12 @@ public class RecipeWidget extends AppWidgetProvider
     {
         super.onReceive(context, intent);
 
-        AppWidgetManager manager = AppWidgetManager.getInstance(context);
         ArrayList<String> stepList = intent.getStringArrayListExtra(Constants.STEP_LIST);
+
+        if (stepList == null)
+            return;
+
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
 
         if(manager != null) {
             updateWidgetView(context,
@@ -69,6 +73,9 @@ public class RecipeWidget extends AppWidgetProvider
     private void updateWidgetView(Context context, AppWidgetManager appWidgetManager,
                                   int[] appWidgetIds, ArrayList<String> stepList)
     {
+        if (stepList == null)
+            return;
+
         for (int widgetId : appWidgetIds)
         {
             RemoteViews mView = initViews(context, widgetId, stepList);
@@ -80,19 +87,24 @@ public class RecipeWidget extends AppWidgetProvider
     @SuppressLint("NewApi")
     private RemoteViews initViews(Context context, int widgetId, ArrayList<String> stepList)
     {
-        RemoteViews mView = new RemoteViews(context.getPackageName(),
+        if(stepList == null)
+            return null;
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.recipe_widget);
 
+        remoteViews.setTextViewText(R.id.appwidget_text, stepList.get(stepList.size()-1));
+        stepList.remove(stepList.size()-1);
+
+        stepList.remove(stepList.size()-1);
         Intent intent = new Intent(context, WidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        intent.putStringArrayListExtra(Constants.STEP_LIST,stepList);
 
-        if(stepList != null)
-            intent.putStringArrayListExtra(Constants.STEP_LIST,stepList);
+        remoteViews.setRemoteAdapter(widgetId, R.id.widgetCollectionList, intent);
 
-        mView.setRemoteAdapter(widgetId, R.id.widgetCollectionList, intent);
-
-        return mView;
+        return remoteViews;
     }
 }
 
