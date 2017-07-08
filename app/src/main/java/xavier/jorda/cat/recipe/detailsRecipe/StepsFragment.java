@@ -76,6 +76,11 @@ public class StepsFragment extends DetailsFragment
 
         rView_.setLayoutManager(mLayoutManager);
         rView_.setAdapter(rcAdapter);
+
+
+        if (myApp.idlingResource_!= null)
+            myApp.idlingResource_.setIdleState(true);
+
         return view;
     }
 

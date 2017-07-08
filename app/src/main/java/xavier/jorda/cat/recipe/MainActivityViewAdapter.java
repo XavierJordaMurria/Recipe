@@ -24,10 +24,17 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     private List<RecipeModel> itemList = new ArrayList<>();
 
     private Context context;
+    private AdapterCallBack listener_;
 
-    public MainActivityViewAdapter(Context context)
+    public interface AdapterCallBack
+    {
+        void onDatarecieved();
+    }
+
+    public MainActivityViewAdapter(Context context, AdapterCallBack listener)
     {
         this.context = context;
+        listener_ = listener;
     }
 
     @Override
@@ -69,6 +76,7 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     {
         this.itemList = itemList;
         this.notifyDataSetChanged();
+        listener_.onDatarecieved();
     }
 
     public void addRecipe(RecipeModel repo)

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import xavier.jorda.cat.recipe.MyApplication;
 import xavier.jorda.cat.recipe.R;
 import xavier.jorda.cat.recipe.util.Constants;
 
@@ -26,6 +27,8 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     private int recipeCardPosition_ = -1; // or other values
     private int stepNum_ = -1; // or other values
     private DetailsFragment newFragment;
+    private MyApplication myApp;
+
 
     private enum loadFrgType_ {ADD_FRG, REPLACE_FRG};
     @Override
@@ -42,6 +45,11 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "onCreate");
+
+        myApp = (MyApplication)getApplication();
+
+        if (myApp.idlingResource_!= null)
+            myApp.idlingResource_.setIdleState(false);
 
         setContentView(R.layout.details_recipe);
 
@@ -79,6 +87,15 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
             loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
             loadFragment(new StepDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
         }
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        if (myApp.idlingResource_!= null)
+            myApp.idlingResource_.setIdleState(true);
     }
 
     @Override
@@ -126,6 +143,10 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     @Override
     public void onStepItemSelected(int position)
     {
+
+        if (myApp.idlingResource_!= null)
+            myApp.idlingResource_.setIdleState(false);
+
         DetailsFragment secondFragment;
         Bundle args = new Bundle();
 

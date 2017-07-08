@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.util.List;
 
+import xavier.jorda.cat.recipe.IdlingResource.SimpleIdlingResource;
 import xavier.jorda.cat.recipe.model.RecipeModel;
 
 /**
@@ -13,4 +14,5 @@ import xavier.jorda.cat.recipe.model.RecipeModel;
 public class MyApplication extends Application
 {
     public static List<RecipeModel> recipes;
+    public SimpleIdlingResource idlingResource_;
 }

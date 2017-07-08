@@ -127,6 +127,11 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
         // Initialize the player.
         initializePlayer(Uri.parse(stepsComponents_.getVideoURL_()));
+
+
+        if (myApp.idlingResource_!= null)
+            myApp.idlingResource_.setIdleState(true);
+
         return view;
     }
 
