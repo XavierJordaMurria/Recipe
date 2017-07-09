@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".detailsRecipe.DetailsFragmentActivity" />
+        <activity android:name=".detailsRecipe.DetailsFragmentActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity"/>
 
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>

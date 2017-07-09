@@ -17,8 +17,7 @@ import java.util.List;
 
 import xavier.jorda.cat.recipe.model.RecipeModel;
 
-public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityViewHolders>
-{
+public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityViewHolders> {
     private final static String TAG = MainActivityViewAdapter.class.getSimpleName();
 
     private List<RecipeModel> itemList = new ArrayList<>();
@@ -26,61 +25,51 @@ public class MainActivityViewAdapter extends RecyclerView.Adapter<MainActivityVi
     private Context context;
     private AdapterCallBack listener_;
 
-    public interface AdapterCallBack
-    {
+    public interface AdapterCallBack {
         void onDatarecieved();
     }
 
-    public MainActivityViewAdapter(Context context, AdapterCallBack listener)
-    {
+    public MainActivityViewAdapter(Context context, AdapterCallBack listener) {
         this.context = context;
         listener_ = listener;
     }
 
     @Override
-    public MainActivityViewHolders onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public MainActivityViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_list, null);
         MainActivityViewHolders rcv = new MainActivityViewHolders(layoutView);
         return rcv;
     }
 
     @Override
-    public void onBindViewHolder(MainActivityViewHolders holder, int position)
-    {
+    public void onBindViewHolder(MainActivityViewHolders holder, int position) {
         holder.mRecipeName_.setText(itemList.get(position).getName_());
 
         String imgURL = itemList.get(position).getImage();
 
-        if(!imgURL.isEmpty())
-        {
+        if (!imgURL.isEmpty()) {
             Picasso.with(context)
                     .load(imgURL)
                     .resize(50, 50)
                     .centerCrop()
                     .into(holder.mRecipePhoto_);
-        }
-        else
-        {
+        } else {
             Picasso.with(context).load(R.drawable.ic_launcher).into(holder.mRecipePhoto_);
         }
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return this.itemList.size();
     }
 
-    public void addRecipeList(List<RecipeModel> itemList)
-    {
+    public void addRecipeList(List<RecipeModel> itemList) {
         this.itemList = itemList;
         this.notifyDataSetChanged();
         listener_.onDatarecieved();
     }
 
-    public void addRecipe(RecipeModel repo)
-    {
+    public void addRecipe(RecipeModel repo) {
         this.itemList.add(repo);
         notifyItemInserted(this.itemList.size() - 1);
     }

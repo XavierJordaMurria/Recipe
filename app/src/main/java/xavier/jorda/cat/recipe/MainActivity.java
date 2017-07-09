@@ -12,21 +12,19 @@ import android.support.v7.widget.RecyclerView;
 import xavier.jorda.cat.recipe.IdlingResource.SimpleIdlingResource;
 import xavier.jorda.cat.recipe.service.RetrofitWrapper;
 
-public class MainActivity extends AppCompatActivity implements MainActivityViewAdapter.AdapterCallBack
-{
+public class MainActivity extends AppCompatActivity implements MainActivityViewAdapter.AdapterCallBack {
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private GridLayoutManager mLayout;
     private MyApplication myApp;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        myApp = (MyApplication)getApplication();
+        myApp = (MyApplication) getApplication();
 
-        if (myApp.idlingResource_!= null)
+        if (myApp.idlingResource_ != null)
             myApp.idlingResource_.setIdleState(false);
 
         setContentView(R.layout.activity_main);
@@ -35,20 +33,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityViewA
         RetrofitWrapper.getRecipesInto(this, rcAdapter);
 
         mLayout = new GridLayoutManager(MainActivity.this, getCardsNumberOnScreen());
-        RecyclerView rView = (RecyclerView)findViewById(R.id.recipes_recycler_view);
+        RecyclerView rView = (RecyclerView) findViewById(R.id.recipes_recycler_view);
         rView.setHasFixedSize(true);
         rView.setLayoutManager(mLayout);
         rView.setAdapter(rcAdapter);
     }
 
-    private int getCardsNumberOnScreen()
-    {
+    private int getCardsNumberOnScreen() {
         int cardsNumber;
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
-        switch(screenSize) {
+        switch (screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 cardsNumber = 3;
@@ -68,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityViewA
      */
     @VisibleForTesting
     @NonNull
-    public IdlingResource getIdlingResource()
-    {
+    public IdlingResource getIdlingResource() {
         if (myApp.idlingResource_ == null)
             myApp.idlingResource_ = new SimpleIdlingResource();
 

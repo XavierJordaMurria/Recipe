@@ -1,6 +1,7 @@
 package xavier.jorda.cat.recipe.detailsRecipe;
 
 
+import android.app.ActionBar;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -20,8 +22,7 @@ import xavier.jorda.cat.recipe.util.Constants;
  * Created by xj1 on 04/06/2017.
  */
 
-public class DetailsFragmentActivity extends AppCompatActivity implements StepsFragment.OnItemSelectedListener
-{
+public class DetailsFragmentActivity extends AppCompatActivity implements StepsFragment.OnItemSelectedListener {
     private static String TAG = DetailsFragmentActivity.class.getSimpleName();
 
     private int recipeCardPosition_ = -1; // or other values
@@ -29,32 +30,35 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     private DetailsFragment newFragment;
     private MyApplication myApp;
 
-
     private enum loadFrgType_ {ADD_FRG, REPLACE_FRG};
+
     @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
         outState.putInt(Constants.STEP_NUMBER, stepNum_);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "onCreate");
 
-        myApp = (MyApplication)getApplication();
+        ActionBar actionBar = getActionBar();
 
-        if (myApp.idlingResource_!= null)
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        myApp = (MyApplication) getApplication();
+
+        if (myApp.idlingResource_ != null)
             myApp.idlingResource_.setIdleState(false);
 
         setContentView(R.layout.details_recipe);
 
         Bundle b = getIntent().getExtras();
-        if(b != null)
+        if (b != null)
             recipeCardPosition_ = b.getInt(Constants.RECIPE_CARD_POSITION);
 
         Bundle args = new Bundle();
@@ -62,25 +66,24 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
 
         FrameLayout details = (FrameLayout) findViewById(R.id.recipe_step_fragment_details);
 
-        if (savedInstanceState == null)
-        {
+        if (savedInstanceState == null) {
+
             loadFragment(new StepsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
 
             if (details != null)
                 loadFragment(new IngredientsDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
 
-        }
-        else if (currentFragment() instanceof StepDetailsFragment &&
-                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
+        } else if (currentFragment() instanceof StepDetailsFragment &&
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
             args.putInt(Constants.RECIPE_CARD_POSITION, savedInstanceState.getInt(Constants.RECIPE_CARD_POSITION));
             args.putInt(Constants.STEP_NUMBER, savedInstanceState.getInt(Constants.STEP_NUMBER));
 
             loadFragment(new StepDetailsFragment(), loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
-        }
-        else if (currentFragment() instanceof StepsFragment &&
-                (details != null))
-        {
+
+        } else if (currentFragment() instanceof StepsFragment &&
+                (details != null)) {
+
             args.putInt(Constants.RECIPE_CARD_POSITION, savedInstanceState.getInt(Constants.RECIPE_CARD_POSITION));
             args.putInt(Constants.STEP_NUMBER, savedInstanceState.getInt(Constants.STEP_NUMBER));
 
@@ -90,22 +93,19 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
-        if (myApp.idlingResource_!= null)
+        if (myApp.idlingResource_ != null)
             myApp.idlingResource_.setIdleState(true);
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Log.d(TAG, "onBackPressed");
         if (currentFragment() instanceof StepsFragment)
             super.onBackPressed();
-        else
-        {
+        else {
             Bundle args = new Bundle();
             args.putInt(Constants.RECIPE_CARD_POSITION, recipeCardPosition_);
 
@@ -114,24 +114,30 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         Log.d(TAG, "onConfigurationChanged");
 
         // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-        }
-        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
         }
 
-        if (currentFragment() instanceof StepDetailsFragment)
-        {
+        if (currentFragment() instanceof StepDetailsFragment) {
             newFragment = new StepDetailsFragment();
 
             Bundle args = new Bundle();
@@ -141,22 +147,18 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
     }
 
     @Override
-    public void onStepItemSelected(int position)
-    {
+    public void onStepItemSelected(int position) {
 
-        if (myApp.idlingResource_!= null)
+        if (myApp.idlingResource_ != null)
             myApp.idlingResource_.setIdleState(false);
 
         DetailsFragment secondFragment;
         Bundle args = new Bundle();
 
-        if( position == -1)
-        {
+        if (position == -1) {
             secondFragment = new IngredientsDetailsFragment();
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        else
-        {
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             stepNum_ = position;
             secondFragment = new StepDetailsFragment();
@@ -167,15 +169,12 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
 
         FrameLayout details = (FrameLayout) findViewById(R.id.recipe_step_fragment_details);
 
-        if(details == null)
-        {
+        if (details == null) {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                 loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
             else
                 loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_steps_fragment_container, args);
-        }
-        else
-        {
+        } else {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                 loadFragment(secondFragment, loadFrgType_.REPLACE_FRG, R.id.recipe_step_fragment_details, args);
             else
@@ -183,13 +182,11 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
         }
     }
 
-    private Fragment currentFragment()
-    {
+    private Fragment currentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.recipe_steps_fragment_container);
     }
 
-    private void loadFragment(Fragment newFragment, loadFrgType_ loadFrgType, int containerViewID, Bundle args)
-    {
+    private void loadFragment(Fragment newFragment, loadFrgType_ loadFrgType, int containerViewID, Bundle args) {
         if (args != null)
             newFragment.setArguments(args);
 
@@ -200,8 +197,7 @@ public class DetailsFragmentActivity extends AppCompatActivity implements StepsF
                     .beginTransaction()
                     .add(containerViewID, newFragment)
                     .commit();
-        }
-        else{
+        } else {
             frgManager
                     .beginTransaction()
                     .replace(containerViewID, newFragment)

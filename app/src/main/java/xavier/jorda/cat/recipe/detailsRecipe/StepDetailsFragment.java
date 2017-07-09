@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -36,6 +37,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import xavier.jorda.cat.recipe.MyApplication;
 import xavier.jorda.cat.recipe.R;
@@ -43,13 +45,13 @@ import xavier.jorda.cat.recipe.model.StepsComponents;
 import xavier.jorda.cat.recipe.util.Constants;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by xj1 on 24/06/2017.
  */
 
-public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.EventListener
-{
+public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.EventListener {
     private final static String TAG = StepDetailsFragment.class.getSimpleName();
 
     private int recipeCardPosition_;
@@ -65,41 +67,39 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
     private SimpleExoPlayer exoPlayer_;
     private SimpleExoPlayerView playerView_;
+    private ImageView thumbNailURL_;
 
     private StepsFragment.OnItemSelectedListener listener_;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG,"onCreate");
-        myApp = (MyApplication)getActivity().getApplication();
+        Log.d(TAG, "onCreate");
+        myApp = (MyApplication) getActivity().getApplication();
 
 //        if(savedInstanceState == null)
 //        {
-            // Get back arguments
-            if(getArguments() == null)
-                return;
+        // Get back arguments
+        if (getArguments() == null)
+            return;
 
-            recipeCardPosition_ = getArguments().getInt(Constants.RECIPE_CARD_POSITION, 0);
-            stepNumber_ = getArguments().getInt(Constants.STEP_NUMBER, 0);
-            numOfSteps_ = myApp.recipes.get(recipeCardPosition_).getSteps_().size();
+        recipeCardPosition_ = getArguments().getInt(Constants.RECIPE_CARD_POSITION, 0);
+        stepNumber_ = getArguments().getInt(Constants.STEP_NUMBER, 0);
+        numOfSteps_ = myApp.recipes.get(recipeCardPosition_).getSteps_().size();
 
-            stepsComponents_ = myApp.recipes.get(recipeCardPosition_).getSteps_().get(stepNumber_);
+        stepsComponents_ = myApp.recipes.get(recipeCardPosition_).getSteps_().get(stepNumber_);
 
 //        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        Log.d(TAG,"onCreateView");
+                             Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.step_details, container, false);
 
-        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT)
-        {
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
             stepNum_ = (TextView) view.findViewById(R.id.stepNum_StepDetails);
             stepNum_.setText(getString(R.string.stepNum, stepsComponents_.getId_()));
 
@@ -110,17 +110,23 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
             stepDescription_.setText(stepsComponents_.getDescription_());
         }
 
-        playerView_ = (SimpleExoPlayerView)view.findViewById(R.id.playerView);
+        playerView_ = (SimpleExoPlayerView) view.findViewById(R.id.playerView);
 
         // Load the question mark as the background image until the user answers the question.
         playerView_.setDefaultArtwork(BitmapFactory.decodeResource
                 (getResources(), R.drawable.question_mark));
 
-        Button prev_,next_;
-        prev_ = (Button)view.findViewById(R.id.prevBtn_StepDetails);
+        if (!stepsComponents_.getThumbNailURL_().isEmpty()) {
+            thumbNailURL_ = (ImageView) view.findViewById(R.id.step_thumbNailURL);
+            thumbNailURL_.setVisibility(View.VISIBLE);
+            Picasso.with(getContext()).load(stepsComponents_.getThumbNailURL_()).into(thumbNailURL_);
+        }
+
+        Button prev_, next_;
+        prev_ = (Button) view.findViewById(R.id.prevBtn_StepDetails);
         prev_.setOnClickListener(v -> goPrev());
 
-        next_ = (Button)view.findViewById(R.id.nextBtn_StepDetails);
+        next_ = (Button) view.findViewById(R.id.nextBtn_StepDetails);
         next_.setOnClickListener(v -> goNext());
 
         initializeMediaSession();
@@ -129,17 +135,16 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
         initializePlayer(Uri.parse(stepsComponents_.getVideoURL_()));
 
 
-        if (myApp.idlingResource_!= null)
+        if (myApp.idlingResource_ != null)
             myApp.idlingResource_.setIdleState(true);
 
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG,"onActivityCreated");
+        Log.d(TAG, "onActivityCreated");
     }
 
     //--OnItemSelectedListener listener;
@@ -147,12 +152,11 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     // The onAttach method is called when the Fragment instance is associated with an Activity.
     // This does not mean the Activity is fully initialized.
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d(TAG,"onAttach");
+        Log.d(TAG, "onAttach");
 
-        if(context instanceof StepsFragment.OnItemSelectedListener)  // context instanceof YourActivity
+        if (context instanceof StepsFragment.OnItemSelectedListener)  // context instanceof YourActivity
             this.listener_ = (StepsFragment.OnItemSelectedListener) context; // = (YourActivity) context
         else
             throw new ClassCastException(context.toString()
@@ -161,11 +165,10 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
 
     @CallSuper
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
 
-        Log.d(TAG,"onPause");
+        Log.d(TAG, "onPause");
         releasePlayer();
         mediaSession_.setActive(false);
     }
@@ -174,10 +177,9 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
      * Release the player when the activity is destroyed.
      */
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG,"onDestroy");
+        Log.d(TAG, "onDestroy");
     }
 
 
@@ -185,8 +187,7 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
      * Initializes the Media Session to be enabled with media buttons, transport controls, callbacks
      * and media controller.
      */
-    private void initializeMediaSession()
-    {
+    private void initializeMediaSession() {
 
         // Create a MediaSessionCompat.
         mediaSession_ = new MediaSessionCompat(getContext(), TAG);
@@ -219,10 +220,10 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
 
     /**
      * Initialize ExoPlayer.
+     *
      * @param mediaUri The URI of the sample to play.
      */
-    private void initializePlayer(Uri mediaUri)
-    {
+    private void initializePlayer(Uri mediaUri) {
         if (exoPlayer_ != null)
             return;
 
@@ -247,9 +248,8 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     /**
      * Release ExoPlayer.
      */
-    private void releasePlayer()
-    {
-        if(exoPlayer_ == null)
+    private void releasePlayer() {
+        if (exoPlayer_ == null)
             return;
 
         exoPlayer_.stop();
@@ -258,37 +258,35 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     }
 
     @Override
-    public void onTimelineChanged(Timeline timeline, Object o)
-    {}
+    public void onTimelineChanged(Timeline timeline, Object o) {
+    }
 
     @Override
-    public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray)
-    {}
+    public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray) {
+    }
 
     @Override
-    public void onLoadingChanged(boolean b)
-    {}
+    public void onLoadingChanged(boolean b) {
+    }
 
     @Override
-    public void onPlayerStateChanged(boolean b, int i)
-    {}
+    public void onPlayerStateChanged(boolean b, int i) {
+    }
 
     @Override
-    public void onPlayerError(ExoPlaybackException e)
-    {}
+    public void onPlayerError(ExoPlaybackException e) {
+    }
 
     @Override
-    public void onPositionDiscontinuity()
-    {}
+    public void onPositionDiscontinuity() {
+    }
 
     /**
      * Media Session Callbacks, where all external clients control the player.
      */
-    private class MySessionCallback extends MediaSessionCompat.Callback
-    {
+    private class MySessionCallback extends MediaSessionCompat.Callback {
         @Override
-        public void onPlay()
-        {
+        public void onPlay() {
             exoPlayer_.setPlayWhenReady(true);
         }
 
@@ -306,28 +304,24 @@ public class StepDetailsFragment extends DetailsFragment implements ExoPlayer.Ev
     /**
      * Broadcast Receiver registered to receive the MEDIA_BUTTON intent coming from clients.
      */
-    public static class MediaReceiver extends BroadcastReceiver
-    {
+    public static class MediaReceiver extends BroadcastReceiver {
 
-        public MediaReceiver()
-        {}
+        public MediaReceiver() {
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent)
-        {
+        public void onReceive(Context context, Intent intent) {
             MediaButtonReceiver.handleIntent(mediaSession_, intent);
         }
     }
 
-    private void goPrev()
-    {
+    private void goPrev() {
         releasePlayer();
         int preStep = (stepNumber_ - 1) % numOfSteps_;
         listener_.onStepItemSelected(preStep);
     }
 
-    private void goNext()
-    {
+    private void goNext() {
         releasePlayer();
         int nextStep = (stepNumber_ + 1) % numOfSteps_;
         listener_.onStepItemSelected(nextStep);
